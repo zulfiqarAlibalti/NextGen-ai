@@ -19,11 +19,14 @@ import { Loader } from "@/components/loader";
 import { cn } from "@/lib/utils";
 import { UserAvatar } from "@/components/user-avatar";
 import { BotAvatar } from "@/components/bot-avatar";
-import remarkGfm from 'remark-gfm';
-import rehypeHighlight from 'rehype-highlight';
-import 'highlight.js/styles/github.css'; // or any other theme you prefer
+import remarkGfm from "remark-gfm";
+import rehypeHighlight from "rehype-highlight";
+import "highlight.js/styles/github.css";
+import { useProModal } from "@/hooks/use-pro-modal"; 
+import toast from "react-hot-toast";
 
 const CodePage = () => {
+  const ProModal = useProModal();
   const router = useRouter();
   const [messages, setMessages] = useState<ChatCompletionRequestMessage[]>([]);
 
@@ -52,7 +55,11 @@ const CodePage = () => {
 
       form.reset();
     } catch (error: any) {
-      console.error(error);
+      if (error.response?.status === 403) {
+        ProModal.onOpen();
+      }else {
+        toast.error("Somthing went wrong.")
+      }
     } finally {
       router.refresh();
     }
@@ -129,7 +136,9 @@ const CodePage = () => {
               key={index}
               className={cn(
                 "p-4 w-full flex items-start gap-x-4 rounded-lg",
-                message.role === "user" ? "bg-white border border-black/10" : "bg-muted"
+                message.role === "user"
+                  ? "bg-white border border-black/10"
+                  : "bg-muted"
               )}
             >
               {message.role === "user" ? <UserAvatar /> : <BotAvatar />}

@@ -2,6 +2,7 @@ import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 import Replicate from "replicate";
 import { increaseApiLimit, checkApiLimit } from "@/lib/api-limit";
+import { checkSubscription } from "@/lib/subscription";
 // Initialize Replicate with the API key
 const replicate = new Replicate({
   auth: process.env.REPLICATE_API_TOKEN
@@ -26,7 +27,8 @@ export async function POST(req: Request): Promise<NextResponse> {
       return new NextResponse("Prompt is required and must be a string", { status: 400 });
     }
     const freeTrial = await checkApiLimit();
-    if (!freeTrial) {
+    const isPro = await checkSubscription();
+    if (!freeTrial && !isPro) {
       return new NextResponse("You have reached the maximum limit", { status: 403 });
     }
 
@@ -36,8 +38,9 @@ export async function POST(req: Request): Promise<NextResponse> {
       { input: { prompt: body.prompt } }
     );
     // Increase the API usage count
+    if (!isPro) {
     await increaseApiLimit();
-
+    }
 
     // Return the response from Replicate
     return NextResponse.json(response);

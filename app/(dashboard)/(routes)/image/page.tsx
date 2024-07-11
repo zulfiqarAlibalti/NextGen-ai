@@ -19,8 +19,11 @@ import { Loader } from "@/components/loader";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardFooter } from "@/components/ui/card";
 import Image from "next/image";
+import { useProModal } from "@/hooks/use-pro-modal";
+import toast from "react-hot-toast";
 
 const ImagePage = () => {
+  const ProModal = useProModal();
   const router = useRouter();
   const [images, setImages] = useState<string[]>([]);
 
@@ -46,7 +49,11 @@ const ImagePage = () => {
       setImages(urls);
       form.reset();
     } catch (error: any) {
-      console.error('Error submitting form:', error.response?.data || error.message);
+      if (error.response?.status === 403) {
+        ProModal.onOpen();
+      }else {
+        toast.error("Somthing went wrong.")
+      }
     } finally {
       router.refresh();
     }

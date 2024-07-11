@@ -2,6 +2,7 @@ import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 import OpenAI from "openai";
 import { increaseApiLimit, checkApiLimit } from "@/lib/api-limit";
+import { checkSubscription } from "@/lib/subscription";
 
 // Initialize OpenAI with the API key
 const openai = new OpenAI({
@@ -31,7 +32,8 @@ export async function POST(req: Request): Promise<NextResponse> {
       return new NextResponse("Messages array is required", { status: 400 });
     }
     const freeTrial = await checkApiLimit();
-    if (!freeTrial) {
+    const isPro = await checkSubscription();
+    if (!freeTrial && !isPro) {
       return new NextResponse("You have reached the maximum limit", { status: 403 });
     }
 
@@ -41,7 +43,11 @@ export async function POST(req: Request): Promise<NextResponse> {
       messages: [instructionMessage, ...body.messages],
     });
     // Increase the API usage count
-    await increaseApiLimit();
+    if (!isPro) {
+       await increaseApiLimit();
+
+    }
+    
 
     // Return the response from OpenAI
     return NextResponse.json(response.choices[0].message);

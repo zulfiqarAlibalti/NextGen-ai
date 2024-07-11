@@ -1,11 +1,12 @@
 import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 import OpenAI from "openai";
-import { increaseApiLimit, checkApiLimit } from "@/lib/api-limit"; // Corrected import statement
+import { increaseApiLimit, checkApiLimit } from "@/lib/api-limit";
+import { checkSubscription } from "@/lib/subscription";
 
 // Initialize OpenAI with the API key
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY, // Ensure this environment variable is set
+  apiKey: process.env.OPENAI_API_KEY,
 });
 
 export async function POST(req: Request): Promise<NextResponse> {
@@ -13,38 +14,38 @@ export async function POST(req: Request): Promise<NextResponse> {
     // Authenticate the user
     const { userId } = auth();
 
-    // Check if the user is authenticated
     if (!userId) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    // Parse the request body
-    const body = await req.json();
-    console.log("Received body:", body);
+    // Parse and validate the request body
+    const { messages } = await req.json();
+    console.log("Received body:", messages);
 
-    // Validate the messages array
-    if (!body.messages || !Array.isArray(body.messages)) {
+    if (!messages || !Array.isArray(messages)) {
       return new NextResponse("Messages array is required", { status: 400 });
     }
 
-    // Check if the user has not exceeded the free trial limit
+    // Check API limit and subscription status
     const freeTrial = await checkApiLimit();
-    if (!freeTrial) {
+    const isPro = await checkSubscription();
+    if (!freeTrial && !isPro) {
       return new NextResponse("You have reached the maximum limit", { status: 403 });
     }
 
     // Create a chat completion request to OpenAI
     const response = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
-      messages: body.messages,
+      messages,
     });
 
-    // Increase the API usage count
-    await increaseApiLimit();
+    // Increase the API usage count if the user is not Pro
+    if (!isPro) {
+      await increaseApiLimit();
+    }
 
     // Return the response from OpenAI
     return NextResponse.json(response.choices[0].message);
-
   } catch (error) {
     console.error("[CONVERSATION_ERROR]", error);
     return new NextResponse("Internal Server Error", { status: 500 });
