@@ -54,10 +54,11 @@ export async function POST(req: Request): Promise<NextResponse> {
     if (!isPro) {
       await increaseApiLimit();
     }
-    
 
     // Extract image URLs from the response
-    const urls = response.data.map((image: { url: string }) => image.url);
+    const urls = response.data
+      .filter((image: { url?: string }) => image.url) // Filter out images with undefined URLs
+      .map((image: { url: string }) => image.url);
 
     // Return the image URLs
     return NextResponse.json(urls);
