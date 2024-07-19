@@ -59,7 +59,7 @@ const ConversationPage = () => {
     } catch (error) {
       if (axios.isAxiosError(error)) {
         // Handle Axios errors
-        if (error.response?.status === 403) {
+        if (error?.response?.status === 403) {
           proModal.onOpen();
         } else {
           toast.error('Something went wrong.');
