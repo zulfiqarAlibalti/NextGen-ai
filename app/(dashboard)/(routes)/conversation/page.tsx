@@ -1,7 +1,7 @@
 "use client";
 
 import { z } from 'zod';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { MessageSquare } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
@@ -14,7 +14,7 @@ import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
 import { cn } from '@/lib/utils';
 import { formSchema } from './constants';
 import { Empty } from '@/components/empty';
-import { Loader } from  '@/components/loader';
+import { Loader } from '@/components/loader';
 import { UserAvatar } from '@/components/user-avatar';
 import { BotAvatar } from '@/components/bot-avatar';
 import { useProModal } from '@/hooks/use-pro-modal';
@@ -58,14 +58,13 @@ const ConversationPage = () => {
       form.reset();
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        // Handle Axios errors
-        if (error?.response?.status === 403) {
+        const axiosError = error as AxiosError;
+        if (axiosError.response?.status === 403) {
           proModal.onOpen();
         } else {
           toast.error('Something went wrong.');
         }
       } else {
-        // Handle other types of errors
         toast.error('An unexpected error occurred.');
       }
     } finally {
