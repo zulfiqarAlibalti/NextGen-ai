@@ -18,7 +18,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { formSchema } from "./constants";
-import { Empty }from "@/components/empty";
+import {Empty} from "@/components/empty";
 import { Loader } from "@/components/loader";
 import { UserAvatar } from "@/components/user-avatar";
 import { BotAvatar } from "@/components/bot-avatar";
@@ -63,10 +63,17 @@ const CodePage = () => {
 
       form.reset();
     } catch (error) {
-      if (error?.response?.status === 403) {
-        ProModal.onOpen();
+      // TypeScript needs to understand the shape of the error
+      if (axios.isAxiosError(error)) {
+        // Handle errors from axios specifically
+        if (error.response?.status === 403) {
+          ProModal.onOpen();
+        } else {
+          toast.error("Something went wrong.");
+        }
       } else {
-        toast.error("Something went wrong.");
+        // Handle other types of errors
+        toast.error("An unexpected error occurred.");
       }
     } finally {
       router.refresh();
