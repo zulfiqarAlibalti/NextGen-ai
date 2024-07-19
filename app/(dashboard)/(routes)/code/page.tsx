@@ -5,30 +5,35 @@ import * as z from "zod";
 import { Heading } from "@/components/heading";
 import { CodeIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
-import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { formSchema } from "./constants";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
-import { ChatCompletionRequestMessage } from "openai";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { zodResolver } from "@hookform/resolvers/zod";
 import ReactMarkdown from "react-markdown";
-import { Empty } from "@/components/empty";
-import { Loader } from "@/components/loader";
-import { cn } from "@/lib/utils";
-import { UserAvatar } from "@/components/user-avatar";
-import { BotAvatar } from "@/components/bot-avatar";
 import remarkGfm from "remark-gfm";
 import rehypeHighlight from "rehype-highlight";
 import "highlight.js/styles/github.css";
+
+import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import { formSchema } from "./constants";
+import { Empty }from "@/components/empty";
+import { Loader } from "@/components/loader";
+import { UserAvatar } from "@/components/user-avatar";
+import { BotAvatar } from "@/components/bot-avatar";
 import { useProModal } from "@/hooks/use-pro-modal"; 
 import toast from "react-hot-toast";
+
+type Message = {
+  role: 'user' | 'assistant';
+  content: string;
+};
 
 const CodePage = () => {
   const ProModal = useProModal();
   const router = useRouter();
-  const [messages, setMessages] = useState<ChatCompletionRequestMessage[]>([]);
+  const [messages, setMessages] = useState<Message[]>([]);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -41,7 +46,7 @@ const CodePage = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      const userMessage: ChatCompletionRequestMessage = {
+      const userMessage: Message = {
         role: "user",
         content: values.prompt,
       };
@@ -51,14 +56,17 @@ const CodePage = () => {
         messages: newMessages,
       });
 
-      setMessages((current) => [...current, userMessage, response.data]);
+      const assistantMessage = response.data;
+
+      setMessages((current) => [...current, userMessage, assistantMessage]);
+      toast.success("Code generated successfully!");
 
       form.reset();
-    } catch (error: any) {
-      if (error.response?.status === 403) {
+    } catch (error) {
+      if (error?.response?.status === 403) {
         ProModal.onOpen();
-      }else {
-        toast.error("Somthing went wrong.")
+      } else {
+        toast.error("Something went wrong.");
       }
     } finally {
       router.refresh();
