@@ -1,7 +1,7 @@
 import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 import OpenAI from "openai";
-import { increaseApiLimit, checkApiLimit } from "@/lib/api-limit";
+import { incrementApiLimit, checkApiLimit } from "@/lib/api-limit";
 import { checkSubscription } from "@/lib/subscription";
 
 // Initialize OpenAI with the API key
@@ -41,7 +41,7 @@ export async function POST(req: Request): Promise<NextResponse> {
 
     // Increase the API usage count if the user is not Pro
     if (!isPro) {
-      await increaseApiLimit();
+      await incrementApiLimit();
     }
 
     // Return the response from OpenAI

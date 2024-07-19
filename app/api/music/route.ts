@@ -1,7 +1,7 @@
 import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 import Replicate from "replicate";
-import { increaseApiLimit, checkApiLimit } from "@/lib/api-limit";
+import { incrementApiLimit, checkApiLimit } from "@/lib/api-limit";
 import { checkSubscription } from "@/lib/subscription";
 // Initialize Replicate with the API key
 const replicate = new Replicate({
@@ -43,7 +43,7 @@ export async function POST(req: Request): Promise<NextResponse> {
     );
     // Increase the API usage count
     if (!isPro) {
-    await increaseApiLimit();
+    await incrementApiLimit();
     }
     // Return the response from Replicate
     return NextResponse.json(response);
