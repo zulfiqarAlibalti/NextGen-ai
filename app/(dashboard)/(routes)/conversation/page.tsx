@@ -57,10 +57,16 @@ const ConversationPage = () => {
       toast.success('You did it!');
       form.reset();
     } catch (error) {
-      if (error?.response?.status === 403) {
-        proModal.onOpen();
+      if (axios.isAxiosError(error)) {
+        // Handle Axios errors
+        if (error.response?.status === 403) {
+          proModal.onOpen();
+        } else {
+          toast.error('Something went wrong.');
+        }
       } else {
-        toast.error('Something went wrong.');
+        // Handle other types of errors
+        toast.error('An unexpected error occurred.');
       }
     } finally {
       setIsLoading(false);
