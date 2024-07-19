@@ -1,8 +1,6 @@
-// pages/api/image.ts
-
 import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
-import OpenAI from "openai";
+import { OpenAI } from "openai";
 import { increaseApiLimit, checkApiLimit } from "@/lib/api-limit";
 import { checkSubscription } from "@/lib/subscription";
 
@@ -23,8 +21,6 @@ export async function POST(req: Request): Promise<NextResponse> {
 
     // Parse the request body
     const body = await req.json();
-    console.log("Received body:", body);
-
     const { prompt, amount = 1, resolution = "512x512" } = body;
 
     // Validate the request body
@@ -37,6 +33,8 @@ export async function POST(req: Request): Promise<NextResponse> {
     if (!resolution.match(/^\d+x\d+$/)) {
       return new NextResponse("Resolution must be in the format WIDTHxHEIGHT", { status: 400 });
     }
+
+    // Check API limits and subscription status
     const freeTrial = await checkApiLimit();
     const isPro = await checkSubscription();
     if (!freeTrial && !isPro) {
@@ -55,13 +53,8 @@ export async function POST(req: Request): Promise<NextResponse> {
       await increaseApiLimit();
     }
 
-    // Extract image URLs from the response
-    const urls = response.data
-      .filter((image: { url?: string }) => image.url) // Filter out images with undefined URLs
-      .map((image: { url: string }) => image.url);
-
     // Return the image URLs
-    return NextResponse.json(urls);
+    return NextResponse.json(response.data);
 
   } catch (error: any) {
     console.error("[IMAGE_ERROR]", error);
