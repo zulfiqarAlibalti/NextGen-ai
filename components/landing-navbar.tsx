@@ -26,13 +26,13 @@ export const LandingNavbar = () => {
                         objectFit="contain"
                     />
                 </div>
-                <h1 className={cn("text-2xl font-bold text-white", font.className)}>
+                <h1 className={cn("text-2xl font-bold text-black", font.className)}>
                     Next Gen-AI
                 </h1>
             </Link>
             <div className="flex items-center gap-x-2">
                 <Link href={isSignedIn ? "/dashboard" : "/sign-up"}>
-                    <Button variant="outline" className="rounded-full">
+                    <Button variant="favorite" className="rounded-full">
                         Get Started
                     </Button>
                 </Link>

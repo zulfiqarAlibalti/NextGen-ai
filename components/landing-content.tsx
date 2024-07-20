@@ -11,39 +11,26 @@ const testimonials = [
       "I have been using Next Gen-AI for a while now and it has been a game changer for me. I can now generate code snippets and images in seconds. I highly recommend it to anyone who wants to save time and increase productivity.",
   },
   {
-    name: "Haider",
+    name: "jaccob",
     avatar: "H",
-    title: "Full Stack Developer",
+    title: "Content Creator",
     description:
-      "I have been using Next Gen-AI for a while now and it has been a game changer for me. I can now generate code snippets and images in seconds. I highly recommend it to anyone who wants to save time and increase productivity.",
+      "I create my audio and video content with Next Gen-AI. It has saved me a lot of time and effort. I can now focus on creating more content and growing my audience.",
   },
-  {
-    name: "Haider",
-    avatar: "H",
-    title: "Full Stack Developer",
-    description:
-      "I have been using Next Gen-AI for a while now and it has been a game changer for me. I can now generate code snippets and images in seconds. I highly recommend it to anyone who wants to save time and increase productivity.",
-  },
-  {
-    name: "Haider",
-    avatar: "H",
-    title: "Full Stack Developer",
-    description:
-      "I have been using Next Gen-AI for a while now and it has been a game changer for me. I can now generate code snippets and images in seconds. I highly recommend it to anyone who wants to save time and increase productivity.",
-  },
+  
 ];
 
 export const LandingContent = () => {
   return (
     <div className="px-10 pb-20">
-      <h2 className="text-center text-4xl text-white font-extrabold mb-10">
+      <h2 className="text-center text-4xl text-black font-extrabold mb-10">
         Testimonials
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {testimonials.map((item) => (
           <Card
             key={item.description}
-            className="bg-[#192339] border-none text-white"
+            className="bg-[#ebeff7] border-none text-black"
           >
             <CardHeader>
               <CardTitle className="flex items-center gap-x-2">
