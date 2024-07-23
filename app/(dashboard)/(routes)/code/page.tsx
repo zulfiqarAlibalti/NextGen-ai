@@ -125,7 +125,7 @@ const CodePage = () => {
                 </FormItem>
               )}
             />
-            <Button
+            <Button variant="premium"
               className="col-span-12 md:col-span-2 w-full"
               disabled={isLoading}
             >
