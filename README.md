@@ -18,7 +18,25 @@
   <h3 align="center">NextGen AI - Generative AI Platform</h3>
 
   <div align="center">
-    Using this NextGen AI SaaS application, we integrate all generative capabilities of AI into a single platform. We build an application using OpenAI API for generation of conversation, image, and code, while using Replicate API for music and video content generation. The platform also includes seamless integration of Stripe payment gateway, Crisp for customer support and help desk, Clerk API for user authentication system, and offers both free and pro plans.
+    Discover the cutting-edge NextGen AI SaaS application, where we unify all generative capabilities of AI into a single platform. Our application leverages the OpenAI API to generate conversations, images, and code, and utilizes the Replicate API for music and video content creation. Enjoy seamless integration with Stripe for payments, Crisp for customer support, and Clerk API for user authentication, offering both free and pro plans for diverse needs.
+  </div>
+
+  <br />
+
+  <div align="center">
+    <a href="https://next-genai.vercel.app" target="_blank">
+      <button style="background-color: #3178C6; color: white; padding: 10px 20px; border: none; border-radius: 5px; font-size: 16px; cursor: pointer;">Open Application</button>
+    </a>
+  </div>
+
+  <br />
+
+  <div align="center">
+    <h4>Watch the Demo Video</h4>
+    <video width="640" height="200" controls>
+      <source src="https://github.com/zulfiqarAlibalti/NextGen-ai/blob/master/demo.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
   </div>
 </div>
 
@@ -32,23 +50,7 @@
 
 This project is a comprehensive SaaS web application that integrates various AI functionalities using OpenAI's API. Here is the demo of [NextGen AI](./demo.mp4).
 
-![NextGen AI Demo](<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <title>Embedded Video</title> -->
-</head>
-<body>
-    <h1>Next Gen-AI</h1>
-    <p>Here is video demo of  project:</p>
-    <video width="640" height="200" controls>
-        <source src="https://github.com/zulfiqarAlibalti/NextGen-ai/blob/master/demo.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
-</body>
-</html>
-)
+![NextGen AI Demo](https://github.com/zulfiqarAlibalti/NextGen-ai/blob/master/demo.mp4)
 
 ## <a name="introduction">🤖 Introduction</a>
 
@@ -65,4 +67,4 @@ Using this NextGen AI SaaS application, we integrate all generative capabilities
 
 👉 **Modern User Interface**: A modern and user-friendly interface, offering an intuitive experience for users.
 
-👉 **Generative AI Integration**: Utilize OpenAI's API to integrate advanced generative AI functionalities into your
+👉 **Generative AI Integration**: Utilize OpenAI's API to integrate advanced generative AI functionalities into your project.
