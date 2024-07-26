@@ -37,12 +37,12 @@ This project is a comprehensive SaaS web application that integrates various AI 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Embedded Video</title>
+    <!-- <title>Embedded Video</title> -->
 </head>
 <body>
     <h1>Project Title</h1>
     <p>Here is an overview of our project:</p>
-    <video width="640" height="360" controls>
+    <video width="640" height="200" controls>
         <source src="./demo.mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
