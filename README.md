@@ -43,7 +43,7 @@ This project is a comprehensive SaaS web application that integrates various AI 
     <h1>Next Gen-AI</h1>
     <p>Here is video demo of  project:</p>
     <video width="640" height="200" controls>
-        <source src="./demo.mp4" type="video/mp4">
+        <source src="https://github.com/zulfiqarAlibalti/NextGen-ai/blob/master/demo.mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
 </body>
