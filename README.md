@@ -30,7 +30,7 @@
 
 ## 🚨 About
 
-This project is a comprehensive SaaS web application that integrates various AI functionalities using OpenAI's API. Here is the demo of [NextGen AI](https://github.com/zulfiqarAlibalti/ai-newssummarizer/blob/master/src/assets/demosaas.gif).
+This project is a comprehensive SaaS web application that integrates various AI functionalities using OpenAI's API. Here is the demo of [NextGen AI](./demo.mp4).
 
 ![NextGen AI Demo](<!DOCTYPE html>
 <html lang="en">
