@@ -33,10 +33,7 @@
 
   <div align="center">
     <h4>Watch the Demo Video</h4>
-    <video width="640" height="200" controls>
-      <source src="https://github.com/zulfiqarAlibalti/NextGen-ai/blob/master/demo.mp4" type="video/mp4">
-      Your browser does not support the video tag.
-    </video>
+    <img src="https://github.com/zulfiqarAlibalti/NextGen-ai/blob/master/demo.gif" alt="NextGen AI Demo" width="640" height="200" />
   </div>
 </div>
 
@@ -48,9 +45,9 @@
 
 ## 🚨 About
 
-This project is a comprehensive SaaS web application that integrates various AI functionalities using OpenAI's API. Here is the demo of [NextGen AI](./demo.mp4).
+This project is a comprehensive SaaS web application that integrates various AI functionalities using OpenAI's API. Here is the demo of [NextGen AI](./demo.gif).
 
-![NextGen AI Demo](https://github.com/zulfiqarAlibalti/NextGen-ai/blob/master/demo.mp4)
+![NextGen AI Demo](https://github.com/zulfiqarAlibalti/NextGen-ai/blob/master/demo.gif)
 
 ## <a name="introduction">🤖 Introduction</a>
 
@@ -68,3 +65,4 @@ Using this NextGen AI SaaS application, we integrate all generative capabilities
 👉 **Modern User Interface**: A modern and user-friendly interface, offering an intuitive experience for users.
 
 👉 **Generative AI Integration**: Utilize OpenAI's API to integrate advanced generative AI functionalities into your project.
+![alt text](demo.gif)
